@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Searchable Data List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        #data-list {
+            list-style: none;
+            padding: 0;
+        }
+        #data-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="search-bar" placeholder="Search...">
+    <ul id="data-list">
+        <!-- Data items will be populated here -->
+    </ul>
+
+    <script>
+        // JSON data
+        const data = [
+            { "ACADEMIC TITLES": "Telling the Story of God in Our Day: A Critical Reading of the Risk" },
+            { "ACADEMIC TITLES": "of Hope" },
+            { "ACADEMIC TITLES": "The Mission of the Teacher: A Critical Reading " },
+            { "ACADEMIC TITLES": "A Book Review: The Faces of Divine Love" },
+            { "ACADEMIC TITLES": "Beautiful God: An Ethical Analysis on Pageants (MAT)" },
+            { "ACADEMIC TITLES": "A Critical Reading of Katilingbang Bol-anon: Ang Katesismo sa " },
+            { "ACADEMIC TITLES": "Diyosesis sa Tagbilaran" },
+            { "ACADEMIC TITLES": "History of Liturgy: A Critical Reading " },
+            { "ACADEMIC TITLES": "The Name of God is Mercy: A Critical Reading" },
+            { "ACADEMIC TITLES": "A Review on the Apostolic Letter \\"Desederio Desideravi\\" of the Holy Father Francis" },
+            { "ACADEMIC TITLES": "A Critical Reading of Let Us Dream: To a Better Future" },
+            { "ACADEMIC TITLES": "Tuesday Sung Lauds for Weeks I to IV: Creative Compilation" },
+            { "ACADEMIC TITLES": "Reflection (w/ Gedorio and German)" },
+            { "ACADEMIC TITLES": "Understanding the Holiness of Marriage and Virginity Through the Lens of Paul's First Letter to the Corinthians" },
+            { "ACADEMIC TITLES": "Primer for Seminarians on Regency (w/ Sawey, Tamayo and Torre)" },
+            { "ACADEMIC TITLES": "Global Ecological Crisi: An Eco Art from the Lens of Liberation Theology (w/Tecson)" },
+            { "ACADEMIC TITLES": "Liturgia: Manual for In-House Liturgical Celebrations (w/ Felicano and Masing)" },
+            { "ACADEMIC TITLES": "GIRM Chapter III & IV: Cebuano Translation (w/ Labrador, Laparan and Pacamparra)" },
+            { "ACADEMIC TITLES": "Sung SMSC Community Sunday Week 1 Lauds (w/ Ferolino and Vasaylaje)" },
+            { "ACADEMIC TITLES": "Liturgia: Manual for In-House Liturgical Celebrations (w/ Carael and Masing)" },
+            { "ACADEMIC TITLES": "Sung SMSC Community Sunday Week 1 Lauds (w/ Esperanza and Vasaylaje)" },
+            { "ACADEMIC TITLES": "Tuesday Sung Lauds for Weeks I to IV: Creative Compilation" },
+            { "ACADEMIC TITLES": "Reflection (w/ Antiola and German)" },
+            { "ACADEMIC TITLES": "Tuesday Sung Lauds for Weeks I to IV: Creative Compilation" },
+            { "ACADEMIC TITLES": "Reflection (w/ Antiola and Gedorio)" },
+            { "ACADEMIC TITLES": "GIRM Chapter III & IV: Cebuano Translation (w/ Dela Pena, Laparan and Pacamparra)" },
+            { "ACADEMIC TITLES": "Spiritual Well-Being of Theology Seminarians of Seminario Mayor de San Carlos in the Light of the New Ratio Fundamentalis Institutionis Sacerdotalis" },
+            { "ACADEMIC TITLES": "Tamdanan alang sa Misa sa Mahal nga Birhen sa Carmel (Mga pag-ampo ug mga pagbasa hinubad gikan sa Misal sa mga Relihiyoso sa Birhen sa Carmel)" },
+            { "ACADEMIC TITLES": "Liturgia: Manual for In-House Liturgical Celebrations (w/ Carael and Felicano)" },
+            { "ACADEMIC TITLES": "GIRM Chapter III & IV: Cebuano Translation (w/ Dela Pena, Laparan and Labrador)" },
+            { "ACADEMIC TITLES": "Primer for Seminarians on Regency (w/ Bautista, Tamayo and Torre)" },
+            { "ACADEMIC TITLES": "Primer for Seminarians on Regency (w/ Bautista, Sawey and Torre)" },
+            { "ACADEMIC TITLES": "Global Ecological Crisi: An Eco Art from the Lens of Liberation Theology (w/Bungabong)" },
+            { "ACADEMIC TITLES": "Primer for Seminarians on Regency (w/ Bautista, Sawey and Tamayo)" },
+            { "ACADEMIC TITLES": "Sung SMSC Community Sunday Week 1 Lauds (w/ Esperanza and Ferolino)" },
+            { "ACADEMIC TITLES": "ACADEMIC TITLES" },
+            { "ACADEMIC TITLES": "\\"Characteristics of an Authentic Servant-Leader in John 13: 1-22: People’s Guide in Choosing Ideal Public Servants”" },
+            { "ACADEMIC TITLES": "“Mini-Exegetical Opus on Mark 8:28-29: Peter’s Confession “The Messiah” as Call to Know Jesus Personally”" },
+            { "ACADEMIC TITLES": "Designing a Diocesan Program for those with Mental Health Issues Based on John 11: 1-44" },
+            { "ACADEMIC TITLES": "“Church of the Poor Viewed Through the Lens of PCP II”" },
+            { "ACADEMIC TITLES": "St. Vincent Ferrer Catholic Parish's Synod of Synodality, Bato, Toledo City, Cebu" },
+            { "ACADEMIC TITLES": "\\"The Good Shepherd in John 10: 1-18: Some Criteria in Choosing Candidates for Good Governance in the Philippines.\\"" },
+            { "ACADEMIC TITLES": "Unitive Sexual Morality as an Expression of Mercy and Social Discernment: Towards a Radical Option for the \\" Walking Marginalized\\"" },
+            { "ACADEMIC TITLES": "The Listening Church in John 10:12-21" },
+            { "ACADEMIC TITLES": "A Short Video Catechesis on the Seven Ritual Sacraments in American Sign Language (ASL)" },
+            { "ACADEMIC TITLES": "\\"Sinugboanong Hubad sa Misa sa Piyesta ni San Elias, Propeta\\"" },
+            { "ACADEMIC TITLES": "Tres Minutos nga Katesismo (diha sa nagkadaiyang mga plataporma ginamit ang teknolohiya)" },
+            { "ACADEMIC TITLES": "“GTK the Lives of the Saints in Tiktok”" },
+            { "ACADEMIC TITLES": "\\"The Contribution of Carmelite Spirituality to the Spiritual Formation of Filipino Diocesan Seminarians in the Theology Department\\"" },
+            { "ACADEMIC TITLES": "\\"Matrimonial Consent as the Basic Foundation of the Sacrament of Marriage\\"" },
+            { "ACADEMIC TITLES": "“A Dialectical Tension Between the Administration of Sacraments and Pastoral Responsibilities of Pastors in the Parish”" },
+            { "ACADEMIC TITLES": "Leonardo Boff on Basic Christian Community and Church Hierarchy: A Paradigm for Ecclesial Disaster-Resiliency " },
+            { "ACADEMIC TITLES": "\\"A Radical Perspective of Christian Obedience in Mark 2: 18-22 As a Biblical Basis of the Human Formation of Seminario Mayor De San Carlos\\"" },
+            { "ACADEMIC TITLES": "\\"The Eucharist in the Bread of Life Discourse of Jn 6, 51: A Renewed Pastoral Understanding in the Post-Pandemic Period”" }
+        ];
+
+        const searchBar = document.getElementById('search-bar');
+        const dataList = document.getElementById('data-list');
+
+        function renderList(filteredData) {
+            dataList.innerHTML = '';
+            filteredData.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item["ACADEMIC TITLES"];
+                dataList.appendChild(li);
+            });
+        }
+
+        searchBar.addEventListener('input', () => {
+            const searchTerm = searchBar.value.toLowerCase();
+            const filteredData = data.filter(item => item["ACADEMIC TITLES"].toLowerCase().includes(searchTerm));
+            renderList(filteredData);
+        });
+
+        // Initial render
+        renderList(data);
+    </script>
+</body>
+</html>
